@@ -1,7 +1,9 @@
 <div id="<%= dom_id discussion %>">
   <p>
-    <strong>Posted by
-      <%= time_ago_in_words(discussion.created_at) %>
+    <strong>
+      <%="#{discussion.user.num} #{discussion.user.name}"%>
+      <%= time_ago_in_words(discussion.created_at) %>前:
+      
     </strong><br/>
     <%= discussion.content %>
   </p>

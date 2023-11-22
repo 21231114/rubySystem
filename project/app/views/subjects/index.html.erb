@@ -3,16 +3,16 @@
 <h1>项目列表</h1>
 
 <div class="subjects">
-<% @subjects.each do |subject| %>
-<div class="subject">
-   <%= link_to subject.title, subject %><br/>
-    <%= time_ago_in_words subject.created_at %> ago. | 
-    
-   <%= link_to '编辑项目', edit_subject_path(subject) %>
-   <%= link_to '删除项目', subject, data: { turbo_method: :delete, turbo_confirm: '确定删除?' } %>
-   <pre><%= subject.info %></pre>
+  <% @subjects.each do |subject| %>
+    <div class="subject">
+      <%= "#{subject.user.num} #{subject.user.username}" %>
+      <%= link_to subject.title, subject %><br/>
+      <%= time_ago_in_words subject.created_at %>
+前 |
+      <%= link_to "编辑项目", edit_subject_path(subject) %>
+      <%= link_to "删除项目", subject, data: { turbo_method: :delete, turbo_confirm: "确定删除?" } %>
+      <pre><%= subject.info %></pre>
+    </div>
+  <% end %>
 </div>
-<% end %>
-</div>
-<>
 <%= link_to "创建新的项目", new_subject_path %>

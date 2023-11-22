@@ -1,6 +1,7 @@
 class SubjectsController < ApplicationController
-  before_action :set_subject, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :set_subject, only: %i[show edit update destroy]
+  before_action :authenticate_now_user1, except: %i[index show create new]
+  before_action :authenticate_now_user2, only: %i[create new]
 
   # GET /subjects or /subjects.json
   def index
@@ -8,8 +9,7 @@ class SubjectsController < ApplicationController
   end
 
   # GET /subjects/1 or /subjects/1.json
-  def show
-  end
+  def show; end
 
   # GET /subjects/new
   def new
@@ -17,8 +17,7 @@ class SubjectsController < ApplicationController
   end
 
   # GET /subjects/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /subjects or /subjects.json
   def create
@@ -26,7 +25,7 @@ class SubjectsController < ApplicationController
     @subject.user = current_user
     respond_to do |format|
       if @subject.save
-        format.html { redirect_to subject_url(@subject), notice: "项目已经被成功创建！" }
+        format.html { redirect_to subject_url(@subject), notice: '项目已经被成功创建！' }
         format.json { render :show, status: :created, location: @subject }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +38,7 @@ class SubjectsController < ApplicationController
   def update
     respond_to do |format|
       if @subject.update(subject_params)
-        format.html { redirect_to subject_url(@subject), notice: "项目成功更新！" }
+        format.html { redirect_to subject_url(@subject), notice: '项目成功更新！' }
         format.json { render :show, status: :ok, location: @subject }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,19 +52,36 @@ class SubjectsController < ApplicationController
     @subject.destroy!
 
     respond_to do |format|
-      format.html { redirect_to subjects_url, notice: "项目被成功删除!" }
+      format.html { redirect_to subjects_url, notice: '项目被成功删除!' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_subject
-      @subject = Subject.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def subject_params
-      params.require(:subject).permit(:title, :info)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_subject
+    @subject = Subject.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def subject_params
+    params.require(:subject).permit(:title, :info)
+  end
+
+  def authenticate_now_user1
+    if !current_user
+      redirect_to new_user_session_path, alert: '必须先登录'
+    elsif current_user.status == 'student'
+      redirect_to @subject, alert: '你的身份为学生,无权操作项目'
     end
+  end
+
+  def authenticate_now_user2
+    if !current_user
+      redirect_to new_user_session_path, alert: '必须先登录'
+    elsif current_user.status == 'student'
+      redirect_to subjects_path, alert: '你的身份为学生,无权创建项目'
+    end
+  end
 end
