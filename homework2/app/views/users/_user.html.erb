@@ -1,0 +1,18 @@
+<div id="<%= dom_id user %>">
+  <p>
+    <strong>姓名:</strong>
+    <%= user.username %>
+  </p>
+  <p>
+    <strong>学工号:</strong>
+    <%= user.num %>
+  </p>
+<p>
+    <strong>身份:</strong>
+      <% if user.status=="student"%>
+        学生
+        <% else %>
+        老师
+        <% end %>
+  </p>
+</div>

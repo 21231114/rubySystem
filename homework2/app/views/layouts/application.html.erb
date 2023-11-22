@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <div id="banner">
+      <h1>师生项目交流系统</h1>
+      <div id="left-panel"> <% if current_user %>
+        <%= current_user.username %>
+        已登入.<br/>
+        您的身份是
+        <% if current_user.status=="student"%>
+        学生
+        <% else %>
+        老师
+        <% end %>
+        <br/>
+        <%= link_to "登出", destroy_user_session_path, data: { turbo_method: :delete }  %>
+      <% else %>
+        请
+        <%= link_to "登入", new_user_session_path %>
+      <% end %>
+      </div>
+    </div>
+    <div id="main-panel">
+      <%= yield %>
+    </div>
+    <div id="footer">
+      Copyright lmh
+    </div>
+  </body>
+</html>

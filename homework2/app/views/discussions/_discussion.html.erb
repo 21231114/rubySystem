@@ -1,0 +1,14 @@
+<div id="<%= dom_id discussion %>">
+  <p>
+    <strong>Posted by
+      <%= time_ago_in_words(discussion.created_at) %>
+    </strong><br/>
+    <%= discussion.content %>
+  </p>
+</div>
+<div>
+
+  <%= button_to "删除该讨论",
+  "/subjects/#{discussion.subject.id}/discussions/#{discussion.id}",
+  method: :delete %>
+</div>

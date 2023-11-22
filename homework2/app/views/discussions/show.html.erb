@@ -1,0 +1,8 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @discussion %>
+
+<div>
+
+  <%= button_to "Destroy this discussion", "/subjects/#{discussion.subject.id}/discussions/#{discussion.id}", method: :delete %>
+</div>
