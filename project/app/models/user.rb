@@ -10,6 +10,10 @@ class User < ApplicationRecord
   validates :username, presence: true
   validates :status, presence: true
   validates :num, presence: true
+
+  has_many :relations
+  has_many :subjects ,through: :relations
+
   # 对默认方法进行重写
   def email_required?
     false

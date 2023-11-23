@@ -5,10 +5,10 @@
 <div class="subjects">
   <% @subjects.each do |subject| %>
     <div class="subject">
-      <%= "#{subject.user.num} #{subject.user.username}" %>
-      <%= link_to subject.title, subject %><br/>
+      <%= "#{subject.usernum} #{User.find_by(num: subject.usernum).username}" %>在
       <%= time_ago_in_words subject.created_at %>
-前 |
+前发布的<br/>
+  <%= link_to subject.title, subject %>
       <%= link_to "编辑项目", edit_subject_path(subject) %>
       <%= link_to "删除项目", subject, data: { turbo_method: :delete, turbo_confirm: "确定删除?" } %>
       <pre><%= subject.info %></pre>

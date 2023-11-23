@@ -66,3 +66,5 @@ end
 gem 'solargraph', group: :development
 gem "erb-formatter",group: :development
 gem 'devise'
+gem "sassc-rails"
+gem "bootstrap"

@@ -22,7 +22,7 @@ class SubjectsController < ApplicationController
   # POST /subjects or /subjects.json
   def create
     @subject = Subject.new(subject_params)
-    @subject.user = current_user
+    @subject.usernum = current_user.num
     respond_to do |format|
       if @subject.save
         format.html { redirect_to subject_url(@subject), notice: '项目已经被成功创建！' }
