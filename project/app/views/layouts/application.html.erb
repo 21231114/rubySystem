@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title></title>
+    <title>Blog4</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -9,32 +9,64 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-<b class="alert"><%= alert %></b>
-  <body>
-    <div id="banner">
-      <h1>师生项目交流系统</h1>
-      <div id="left-panel"> <% if current_user %>
-        <%= current_user.username %>
-        已登入.<br/>
-        您的身份是
-        <% if current_user.status=="student"%>
-        学生
+ <body>
+
+<div class="container">
+
+<nav class="navbar navbar-expand-lg " style="background-color: burlywood;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">师生交流系统</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href=  "/subjects">项目列表</a>
+        </li>
+        <% if !current_user %>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/sign_in">登录</a>
+        </li>
         <% else %>
-        老师
+        <li class="nav-item">
+          <%=  link_to "登出",destroy_user_session_path(current_user),class:"nav-link"%>
+        </li>
         <% end %>
-        <br/>
-        <%= link_to "登出", destroy_user_session_path, data: { turbo_method: :delete }  %>
-      <% else %>
-        请
-        <%= link_to "登入", new_user_session_path %>
-      <% end %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            我的关注
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<div class="row">
+  <div class="col">
+<%= yield %>
+  </div>
+</div>
+ </body>
+    <footer class="py-5">
+      <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+        <p>版权所有：李孟晗</p>
       </div>
-    </div>
-    <div id="main-panel">
-      <%= yield %>
-    </div>
-    <div id="footer">
-      Copyright lmh
-    </div>
-  </body>
+    </footer>
+</div>
 </html>
+
