@@ -55,12 +55,14 @@ class DiscussionsController < ApplicationController
     @subject = @discussion.subject
     if(current_user != @discussion.user)
       redirect_to @subject, alert: '你不是讨论发布者,无权操作项目'
-    end
+    
+  else
     @discussion.destroy!
     respond_to do |format|
       format.html { redirect_to @subject, notice: '讨论已被删除.' }
       format.json { head :no_content }
     end
+  end
   end
 
   private
