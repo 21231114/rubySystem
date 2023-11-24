@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy unfollow followings]
+  before_action :set_user, only: %i[show edit update destroy follow unfollow followings]
 
   def followings
     @subjects = Subject.all
@@ -65,7 +65,7 @@ class UsersController < ApplicationController
 
   def follow
     @subject = Subject.find(params[:subject_id])
-    if @user.subjects.include?(@subject)
+    if @user.subjects && @user.subjects.include?(@subject)
       redirect_to subjects_path, notice: "您已经关注了项目 #{@subject.title}."
     else
       @user.subjects << @subject

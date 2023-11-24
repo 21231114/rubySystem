@@ -53,7 +53,7 @@ class DiscussionsController < ApplicationController
   # DELETE /discussions/1 or /discussions/1.json
   def destroy
     @subject = @discussion.subject
-    if(current_user != discussion.user)
+    if(current_user != @discussion.user)
       redirect_to @subject, alert: '你不是讨论发布者,无权操作项目'
     end
     @discussion.destroy!

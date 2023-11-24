@@ -27,9 +27,13 @@ style: "background-color: white;" %>
               <%= link_to "取消关注",
               unfollow_user_path(current_user, subject_id: subject),
               class: "btn btn-danger" %>
-            <% else %>
+            <% elsif current_user.status=="student"%>
               <%= link_to "关注项目",
               follow_user_path(current_user, subject_id: subject),
+              class: "btn btn-success" %>
+              <%else%>
+               <%= link_to "编辑项目",
+              edit_subject_path(subject),
               class: "btn btn-success" %>
             <% end %>
           <% else %>
