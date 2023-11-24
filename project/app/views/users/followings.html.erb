@@ -8,7 +8,8 @@
           <div class="card-header">
             项目发布者
             <% if User.find_by(num: subject.usernum) %>
-              ：<%= "#{subject.usernum} #{User.find_by(num: subject.usernum).username}" %><% else %>
+              ：<%= "#{subject.usernum} #{User.find_by(num: subject.usernum).username}" %>
+              <% else %>
               已注销账户
             <% end %>
           </div>
@@ -27,8 +28,6 @@
                 <%= link_to "关注项目",
                 follow_user_path(current_user, subject_id: subject),
                 class: "btn btn-success" %>
-              <% else %>
-                <%= link_to "编辑项目", edit_subject_path(subject), class: "btn btn-success" %>
               <% end %>
             <% else %>
               <%= link_to "关注项目", "/users/sign_in", class: "btn btn-success" %>
