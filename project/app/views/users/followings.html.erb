@@ -1,5 +1,6 @@
 <p style="color: burlywood"><%= notice %></p>
 <p style="color: burlywood"><%= alert %></p>
+<%= i = 0 %>
 <% if @user.subjects.size!=0 %>
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <% @user.subjects.each do |subject| %>
@@ -49,10 +50,9 @@
     <h4 style="color:burlywood">您还没有关注项目</h4>
   <% else %>
     <div class="row row-cols-1 row-cols-md-3 g-4">
-      <%= i = 0 %>
       <% @subjects.each do |subject| %>
         <% if subject.usernum==@user.num %>
-          <%= i = 1 %>
+          <%i = 1 %>
           <div class="col">
             <div class="card" style=" width: 22rem;height: 15rem;margin: 10px;">
               <div class="card-header">
