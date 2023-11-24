@@ -1,10 +1,9 @@
-<h1>Editing subject</h1>
+<h1 style="color: burlywood;font-weight: bold;">编辑项目</h1>
 
 <%= render "form", subject: @subject %>
 
 <br>
 
 <div>
-  <%= link_to "显示项目详情", @subject %> |
-  <%= link_to "返回项目列表", subjects_path %>
+  <%= link_to "显示项目详情", @subject , class: "btn",style: "background-color:burlywood"%> |
 </div>

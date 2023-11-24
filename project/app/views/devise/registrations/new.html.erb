@@ -2,39 +2,41 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :num, "学工号" %><br/>
+<div class="row gy-2 gx-3  align-items-center flex-column">
+   <div class="col-auto">
+    <%= f.label :num, "学工号",class: "form-label",style:"  color: #D2691E;font-weight: bold;" %><br/>
     <%= f.text_field :num, autofocus: true, autocomplete: "num" %>
   </div>
   <br/>
-  <div class="field">
-    <%= f.label :username, "姓名" %><br/>
+   <div class="col-auto">
+    <%= f.label :username, "姓名",class: "form-label",style:"  color: #D2691E;font-weight: bold;" %><br/>
     <%= f.text_field :username, autofocus: true, autocomplete: "username" %>
   </div>
   <br/>
-  <div class="field">
-    <%= f.label :password, "密码" %>
+   <div class="col-auto">
+    <%= f.label :password, "密码",class: "form-label",style:"  color: #D2691E;font-weight: bold;" %>
     <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %>
-        characters minimum)</em>
+      <em style="  color: #D2691E;font-weight: bold;" >(最少<%= @minimum_password_length %>
+        字符)</em>
     <% end %><br/>
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
   <br/>
-  <div class="field">
-    <%= f.label :password_confirmation, "确认密码" %><br/>
+  <div class="col-auto">
+    <%= f.label :password_confirmation, "确认密码" ,class: "form-label",style:"  color: #D2691E;font-weight: bold;"%><br/>
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
   <br/>
-  <div class="field">
-    您的身份是：
-    <%= f.radio_button :status, "teacher" %><%= f.label :status_teacher, "老师" %><%= f.radio_button :status, "student" %><%= f.label :status_student, "学生" %>
+   <div class="col-auto">
+    <em style="color: #D2691E;font-weight: bold;">您的身份是</em>
+    <%= f.radio_button :status, "teacher" %><%= f.label :status_teacher, "老师" ,style:"color: #D2691E;font-weight: bold;"%>
+    <%= f.radio_button :status, "student" %><%= f.label :status_student, "学生" ,style:"color: #D2691E;font-weight: bold;" %>
   </div>
   <br/>
-  <div class="actions">
-    <%= f.submit "注册" %>
+   <div class="col-auto">
+      <div class="actions">
+     <%= f.submit "注册",class: "btn",style:"background-color:burlywood;" %>
+     </div>
   </div>
+</div>
 <% end %>
-<br/>
-<%= render "devise/shared/links" %>

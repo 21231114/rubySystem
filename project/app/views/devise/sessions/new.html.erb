@@ -1,31 +1,33 @@
-<h2>登录</h2>
-
+<br/>
+<br/>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-   <div class="field">
-    <%= f.label :signin,"学工号"%><br />
-    <%= f.text_field :signin, autofocus: true, autocomplete: "signin" %>
-  </div>
-
-
-  <div class="field">
-    <%= f.label :password,"密码" %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me,"记住我" %>
+    <div class="row gy-2 gx-3  align-items-center flex-column">
+      <div class="col-auto">
+      <div class="field">
+        <%= f.label :signin,"学工号",class: "form-label",style:"  color: #D2691E;font-weight: bold;"%><br />
+        <%= f.text_field :signin, autofocus: true, autocomplete: "signin",class:"form-control" %>
+      </div>
     </div>
-  <% end %>
+      <div class="col-auto">
+        <%= f.label :password,"密码",class: "form-label",  style:"color: #D2691E;font-weight: bold;" %><br />
+        <%= f.password_field :password, autocomplete: "current-password",class:"form-control" %>
+      </div>
 
-  <div class="actions">
-    <%= f.submit "登录" %>
-  </div>
+      <% if devise_mapping.rememberable? %>
+        <div class="col-auto">
+          <%= f.check_box :remember_me ,class: "form-check_box"%>
+          <%= f.label :remember_me,"记住我",class: "form-label", style:"color: #D2691E;font-weight: bold;"%>
+        </div>
+      <% end %>
+        <div class="col-auto">
+          <div class="actions">
+          <%= f.submit "登录" , class: "btn",style:"background-color:burlywood;"%>
+      </div>
+    </div>
+</div>
 <% end %>
-<div>
-<%= render "devise/shared/links" %>
+<br/>
+<div style="text-align:center;">
+<%= render "devise/shared/links"%>
 </div>
-<div class="reback">
-    <%= link_to "返回主页", subjects_path %>
-</div>
+<br/>
