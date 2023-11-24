@@ -49,12 +49,12 @@
     background-size: 1500px 625px;
     background-attachment: fixed;
   }
-  .card-text {
-    max-height: 85px;
+  .card-text:not(#diss) {
+    max-height: 70px;
     overflow: auto;
   }
 
-  .card {
+  .card:not(#dis) {
     width: 22rem;
     height: 15rem;
     margin: 10px;

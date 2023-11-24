@@ -4,24 +4,24 @@
       <% @subjects.each do |subject| %>
         <div class="col">
           <div class="card">
-            <div class="card-header">
-              项目发布者
-              <%if User.find_by(num: subject.usernum)%>
-                ：<%= "#{subject.usernum} #{User.find_by(num: subject.usernum).username}" %>
-                <% else %>
-                已注销账户
-                <% end %>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title"><%= subject.title%></h5>
-              <p class="card-text"><%=subject.info%></p>
-            </div>
+              <div class="card-header">
+                项目发布者
+                <%if User.find_by(num: subject.usernum)%>
+                  ：<%= "#{subject.usernum} #{User.find_by(num: subject.usernum).username}" %>
+                  <% else %>
+                  已注销账户
+                  <% end %>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title"><%= subject.title%></h5>
+                <p class="card-text"><%=subject.info%></p>
+              </div>
               <div class="card-footer">
               <%=link_to "查看项目", subject, class:"btn btn-light"%>
               <%=link_to "编辑项目", edit_subject_path(subject), class:"btn btn-light"%>
               <%=link_to "删除项目", subject,  data: { turbo_method: :delete, turbo_confirm: "确定删除?" } ,class:"btn btn-danger"%>
               </div>
-         </div>
+            </div>
          </div>
     <% end %>
 </div>

@@ -1,16 +1,23 @@
-<div id="<%= dom_id discussion %>">
-  <p>
-    <strong>
-      <%="#{discussion.user.num} #{discussion.user.name}"%>
-      <%= time_ago_in_words(discussion.created_at) %>前:
-      
-    </strong><br/>
-    <%= discussion.content %>
-  </p>
+<div id="<%= dom_id discussion %>",style="display: flex; flex-direction: row;gap: 100px">
+<div style=" width: 35rem;margin: 50px;">
+   <div class="card", id="dis">
+              <div class="card-header">
+                <%if discussion.user %>
+               <%="#{discussion.user.num} #{discussion.user.username}"%>
+                    <%= time_ago_in_words(discussion.created_at) %>前:
+                  <% else %>
+                  账户已注销
+                  <% end %>
+              </div>
+              <div class="card-body">
+                <div style="max-height: 70px;overflow: auto;">
+                  <p class="card-text",id="diss"><%=discussion.content%></p>
+                </div>
+              </div>
+                <div class="card-footer">
+                  <%= button_to "删除该讨论","/subjects/#{discussion.subject.id}/discussions/#{discussion.id}",
+                   method: :delete  ,class:"btn btn-danger"%>
+                </div>
+      </div>
 </div>
-<div>
-
-  <%= button_to "删除该讨论",
-  "/subjects/#{discussion.subject.id}/discussions/#{discussion.id}",
-  method: :delete %>
 </div>

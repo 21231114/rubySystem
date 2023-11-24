@@ -10,18 +10,18 @@
       </ul>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+ 
+ <div class="mb-3">
+    <%= form.label :title ,"题目", class: "form-lable",style:"color: burlywood;font-weight: bold;" %>
+    <%= form.text_field :title,:cols=>10 %>
+  </div>
+ <div class="mb-3">
+    <%= form.label :info ,"信息", class: "form-label",style:"color: burlywood;font-weight: bold;" %>
+    <%= form.text_area :info, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :info, style: "display: block" %>
-    <%= form.text_area :info %>
+ <div class="mb-3">
+    <%= form.submit "创建", class: "btn", style:"background-color: burlywood;" %>
   </div>
 
-  <div>
-    <%= form.submit %>
-  </div>
 <% end %>
