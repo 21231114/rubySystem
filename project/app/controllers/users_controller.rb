@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[show edit update destroy unfollow followings]
+
+  def followings
+    @subjects = Subject.all
+  end
 
   # GET /users or /users.json
   def index
@@ -7,8 +11,7 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1 or /users/1.json
-  def show
-  end
+  def show; end
 
   # GET /users/new
   def new
@@ -16,20 +19,19 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-    if(@user.num.length==8) 
-      @user.type=0#学生
-    else
-      @user.type=1#老师
-    end
-      respond_to do |format|
+    @user.type = if @user.num.length == 8
+                   0 # 学生
+                 else
+                   1 # 老师
+                 end
+    respond_to do |format|
       if @user.save
-        format.html { redirect_to user_url(@user), notice: "User was successfully created." }
+        format.html { redirect_to user_url(@user), notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +44,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
+        format.html { redirect_to user_url(@user), notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -56,19 +58,36 @@ class UsersController < ApplicationController
     @user.destroy!
 
     respond_to do |format|
-      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
+      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
+  def follow
+    @subject = Subject.find(params[:subject_id])
+    if @user.subjects.include?(@subject)
+      redirect_to subjects_path, notice: "您已经关注了项目 #{@subject.title}."
+    else
+      @user.subjects << @subject
+      redirect_to subjects_path, notice: "成功关注项目 #{@subject.title}."
     end
+  end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:username, :password, :num,:type)
-    end
+  def unfollow
+    @subject = Subject.find(params[:subject_id])
+    current_user.subjects.delete(@subject)
+    redirect_to subjects_path, notice: "成功取消关注#{@subject.title}."
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def user_params
+    params.require(:user).permit(:username, :password, :num, :type)
+  end
 end

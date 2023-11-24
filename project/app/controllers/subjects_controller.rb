@@ -49,8 +49,10 @@ class SubjectsController < ApplicationController
 
   # DELETE /subjects/1 or /subjects/1.json
   def destroy
+    if(current_user.num!=subject.num)
+      redirect_to @subject, alert: '你不是项目所有者,无权操作项目'
+    end
     @subject.destroy!
-
     respond_to do |format|
       format.html { redirect_to subjects_url, notice: '项目被成功删除!' }
       format.json { head :no_content }

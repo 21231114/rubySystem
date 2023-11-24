@@ -3,7 +3,6 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable # , skip: [:email_validation]
-  has_many :subjects
   has_many :discussions, dependent: :destroy
   attr_accessor :signin # 虚拟属性
 
@@ -12,11 +11,16 @@ class User < ApplicationRecord
   validates :num, presence: true
   validate :status_match # 学工号和身份要匹配，学工号位数合法
 
-  has_many :relations
+  has_many :relations,dependent: :destroy
   has_many :subjects, through: :relations
   def status_match
     if num.length != 8 && num.length!=6
-      errors.add('学工号', '形式不合法')
+      errors.add('学工号', '应为6位或8位的数字')
+    end
+    num.chars.each do |c|
+      if c>'9'|| c<'0'
+        errors.add('学工号', '应为6位或8位的数字')
+      end
     end
     if (num.length == 8&&status=="teacher")||(num.length==6&&status=="student")
       errors.add('身份', '与学工号不匹配')

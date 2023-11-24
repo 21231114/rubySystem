@@ -1,5 +1,11 @@
 <div id="<%= dom_id user %>">
-  <p>
+  <div class="card", id="dis">
+              <div class="card-header">
+                个人资料
+              </div>
+              <div class="card-body">
+                <p class="card-text">
+                  <p>
     <strong>姓名:</strong>
     <%= user.username %>
   </p>
@@ -15,4 +21,10 @@
         老师
         <% end %>
   </p>
+                </p>
+              </div>
+               <div class="card-footer">
+              <%=link_to "注销账户", @user, data: { turbo_method: :delete, turbo_confirm: "确定注销?" }, class:"btn btn-danger"%>
+              </div>
+  </div>
 </div>

@@ -1,0 +1,17 @@
+<p style="color: burlywood"><%= notice %></p>
+<p style="color: burlywood"><%= alert %></p>
+<% if @user.subjects.size!=0 %>
+  <%= render @user.subjects %>
+<% else %>
+  <% if @user.status=="student" %>
+    您还没有关注项目
+  <% else %>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% @subjects.each do |subject| %>
+        <% if subject.usernum==@user.num %>
+        <%= render subject %>
+        <% end %>
+    <% end %>
+  </div>
+  <% end %>
+<% end %>
