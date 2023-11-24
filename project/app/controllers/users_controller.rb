@@ -7,11 +7,15 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    redirect_to subjects_path 
   end
 
   # GET /users/1 or /users/1.json
-  def show; end
+  def show
+  if(!current_user ||current_user!=@user)
+    redirect_to subjects_path 
+  end
+  end
 
   # GET /users/new
   def new
